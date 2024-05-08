@@ -28,7 +28,7 @@
 
 - 記得開 Branch，不要在 main 上面做修改
 - 開發、Debug 完再 merge 到 main
-- merge 完後，可以再用 main 開一個新的 Branch 繼續開發
+- merge 完後，可以再用 main 開一個新的 Branch 繼續開發 (記得先 `pip install -r req.txt` 確認有沒有多出需要的套件)
 
 ### 檔案結構
 
