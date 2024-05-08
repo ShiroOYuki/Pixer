@@ -8,11 +8,21 @@
 
 1. git 抓下來
 2. run `cd Pixer`
-3. run `virtualenv .pixer_venv --python=python3.11.3`
+3. run `virtualenv .pixer_venv --python=python3.11`
 4. run `.pixer_venv/Script/activate`
 5. run `pip install -r req.txt`
 6. run `cd src\Pixer`
 7. run `manage.py runserver`
+
+### for MacOS
+
+1. git 抓下來
+2. run `cd Pixer`
+3. run `virtualenv .pixer_venv --python=python3.11`
+4. run `. ./.pixer_venv/Script/activate`
+5. run `pip install -r req.txt`
+6. run `cd src\Pixer`
+7. run `python manage.py runserver`
 
 ### Git 注意事項
 
@@ -30,7 +40,7 @@ Pixer
  │      ├─Pixer             // Django 設定檔
  │      ├─Homepage          // 主頁
  │      ├─Pixelate          // 圖片轉像素圖的頁面
- │      ├─Gallery           // 畫廊 
+ │      ├─Gallery           // 畫廊
  │      ├─User              // 使用者相關 (登入、設定、書籤)
  │      ├─libs              // 各種工具函式檔案
  │      ├─static            // 網頁會用到的各種檔案
@@ -61,51 +71,51 @@ Pixer
 
 - Class 以駝峰式命名，且以大寫開頭，如：
 
-    ```py
-    # python
-    class PixerTool:
-        def __init__(self): ...
-    ```
+  ```py
+  # python
+  class PixerTool:
+      def __init__(self): ...
+  ```
 
-    ```js
-    // js
-    class PixerTool {
-        constructor() {...}
-    }
-    ```
+  ```js
+  // js
+  class PixerTool {
+      constructor() {...}
+  }
+  ```
 
 - def/function、變數以蛇底式命名，且以小寫開頭，如:
 
-    ```py
-    # python
-    def one_plus_one():
-        num_first = 1
-        num_second = 1
-        return num_first + num_second
-    ```
+  ```py
+  # python
+  def one_plus_one():
+      num_first = 1
+      num_second = 1
+      return num_first + num_second
+  ```
 
-    ```js
-    // js
-    function one_plus_one() {
-        let num_first = 1;
-        let num_second = 1;
-        return num_first + num_second;
-    }
-    ```
+  ```js
+  // js
+  function one_plus_one() {
+    let num_first = 1;
+    let num_second = 1;
+    return num_first + num_second;
+  }
+  ```
 
-- 常數以純大寫命名，如: 
-    
-    ```py
-    # python
-    PI = 3.14
-    DESKTOP_PATH = "C:/Desktop"
-    ```
+- 常數以純大寫命名，如:
 
-    ```js
-    // js 不需使用大寫，但依舊使用小寫蛇底式命名
-    const pi = 3.14;
-    const desktop_path = "C:/Desktop";
-    ```
+  ```py
+  # python
+  PI = 3.14
+  DESKTOP_PATH = "C:/Desktop"
+  ```
+
+  ```js
+  // js 不需使用大寫，但依舊使用小寫蛇底式命名
+  const pi = 3.14;
+  const desktop_path = "C:/Desktop";
+  ```
 
 ## 介紹
 
