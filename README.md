@@ -34,36 +34,36 @@
 
 ```
 Pixer
- ├─.pixer_venv              // Python 虛擬環境
+ ├─.pixer_venv                // Python 虛擬環境
  ├─src
  │  └─Pixer
- │      ├─Pixer             // Django 設定檔
- │      ├─Homepage          // 主頁
- │      ├─Pixelate          // 圖片轉像素圖的頁面
- │      ├─Gallery           // 畫廊
- │      ├─User              // 使用者相關 (登入、設定、書籤)
- │      ├─libs              // 各種工具函式檔案
- │      ├─static            // 網頁會用到的各種檔案
- │      ├─Gallery           // 畫廊網頁檔案 (分頁，非模板/工具，所以用大寫開頭)
- │      │  ├─css            // 畫廊 css
- │      │  └─js             // 畫廊 js
- │      ├─Homepage
- │      │  ├─css
- │      │  └─js
- │      ├─Pixelate
- │      │  ├─css
- │      │  └─js
- │      ├─User
- │      │  ├─css
- │      │  └─js
- │      ├─templates         // 模板 (資料夾以小寫開頭)
- │      │  ├─css
- │      │  └─js
- │      ├─fonts             // 字形檔案
- │      └─imgs              // 各種圖片 (包含 icon)
- ├─README.md                // 這份檔案
- ├─req.txt                  // Python 所需套件
- └─.git                     // Github 資料夾
+ │     ├─Pixer                // Django 設定檔
+ │     ├─Homepage             // 主頁
+ │     ├─Pixelate             // 圖片轉像素圖的頁面
+ │     ├─Gallery              // 畫廊
+ │     ├─User                 // 使用者相關 (登入、設定、書籤)
+ │     ├─libs                 // 各種工具函式檔案
+ │     └─static               // 網頁會用到的各種檔案
+ │        ├─Gallery           // 畫廊網頁檔案 (分頁，非模板/工具，所以用大寫開頭)
+ │        │  ├─css            // 畫廊 css
+ │        │  └─js             // 畫廊 js
+ │        ├─Homepage
+ │        │  ├─css
+ │        │  └─js
+ │        ├─Pixelate
+ │        │  ├─css
+ │        │  └─js
+ │        ├─User
+ │        │  ├─css
+ │        │  └─js
+ │        ├─templates         // 模板 (資料夾以小寫開頭)
+ │        │  ├─css
+ │        │  └─js
+ │        ├─fonts             // 字形檔案
+ │        └─imgs              // 各種圖片 (包含 icon)
+ ├─README.md                  // 這份檔案
+ ├─req.txt                    // Python 所需套件
+ └─.git                       // Github 資料夾
 
 ```
 
