@@ -15,8 +15,6 @@ class ImageProcesser:
         res = np.ndarray(size, dtype=np.uint8)
         scale = 2**(channels/3)-1
         
-        print(round((np.mean([255, 255, 255])//scale) * scale))
-        
         for row in range(0, size[0], pixel_scale):
             for col in range(1, size[1], pixel_scale):
                 r = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 0])/255*scale)/scale * 255
