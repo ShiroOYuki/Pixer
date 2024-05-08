@@ -24,7 +24,7 @@
 
 ```
 Pixer
- ├─.pixer_venv                // Python 虛擬環境
+ ├─.pixer_venv              // Python 虛擬環境
  ├─src
  │  └─Pixer
  │      ├─Pixer             // Django 設定檔
@@ -51,9 +51,9 @@ Pixer
  │      │  └─js
  │      ├─fonts             // 字形檔案
  │      └─imgs              // 各種圖片 (包含 icon)
- ├─README.md                  // 這份檔案
- ├─req.txt                    // Python 所需套件
- └─.git                       // Github 資料夾
+ ├─README.md                // 這份檔案
+ ├─req.txt                  // Python 所需套件
+ └─.git                     // Github 資料夾
 
 ```
 
