@@ -1,17 +1,32 @@
 from PIL import Image, ImageShow
 from typing import Literal
-import os
+import cv2
+import numpy as np
+import io
 
 class ImageProcesser:
-        
-    def byte_to_image(self, img_data: bytes, size: tuple[int, int]):
-        img = Image.frombuffer("RGB", size, img_data, "raw")
+    def byte_to_image(self, img_data: bytes, size: tuple[int, int, int]):
+        img_ary = np.frombuffer(img_data, dtype=np.uint8).reshape(size)
+        img_ary = img_ary.reshape(size)
+        return img_ary
     
-    def process(self, image: Image, channels: Literal[8, 16, 24], color_mode: Literal["gray", "rgb"], pixel_scale: int):
-        image.convert()
+    def process(self, image: np.ndarray, channels: Literal[3, 6, 12, 24], color_mode: Literal["gray", "rgb"], pixel_scale: int):
+        size = image.shape
+        res = np.ndarray(size, dtype=np.uint8)
+        scale = 2**(channels/3)-1
         
-if __name__ == "__main__":
-    img = Image.open(r"C:\Users\bfkam\Downloads\GM1X0CSboAArOs2.jpg")
-    ImageShow.show(img)
-    
-    print(img)
+        print(round((np.mean([255, 255, 255])//scale) * scale))
+        
+        for row in range(0, size[0], pixel_scale):
+            for col in range(1, size[1], pixel_scale):
+                r = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 0])/255*scale)/scale * 255
+                g = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 1])/255*scale)/scale * 255
+                b = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 2])/255*scale)/scale * 255
+                res[row:row+pixel_scale, col:col+pixel_scale, 0] = r
+                res[row:row+pixel_scale, col:col+pixel_scale, 1] = g
+                res[row:row+pixel_scale, col:col+pixel_scale, 2] = b
+        
+        return res
+                
+        
+        
