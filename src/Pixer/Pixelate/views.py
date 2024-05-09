@@ -1,50 +1,52 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
 
-import cv2
+import time
 
+from Pixelate import tests
 from Pixelate.ImageProcesser import ImageProcesser
-from libs.fake_data import Fake
-from PIL import Image
 
 # Create your views here.
 def index(request):
     return HttpResponse("Hello Pixelate!")
 
+def process_image(request):
+    if request.method == "POST":
+        img_buf = request.POST.get("image")
+        size = request.POST.get("size")
+        mode = request.POST.get("mode")
+        scale = request.POST.get("scale")
+        channels = request.POST.get("channels")
+        uid = request.POST.get("uid")
+        img_format = request.POST.get("format")
+        
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if img_buf is None: return HttpResponseBadRequest("key `image` is required")
+        if size is None: return HttpResponseBadRequest("key `size` is required")
+        if mode is None: return HttpResponseBadRequest("key `mode` is required")
+        if scale is None: return HttpResponseBadRequest("key `scale` is required")
+        if channels is None: return HttpResponseBadRequest("key `channels` is required")
+        if img_format is None: return HttpResponseBadRequest("key `format` is required")
+        
+        ip = ImageProcesser()
+        
+        img_ary = ip.byte_to_image(img_buf, (size[1], size[0], 3))
+        if img_ary is None: return HttpResponseServerError("unknown error")
+            
+        process_res = ip.process(img_ary, channels, mode, scale)
+        
+        if process_res.code == 400: return HttpResponseBadRequest(process_res.msg)
+        if process_res.code == 500: return HttpResponseServerError("unknown error")
+        
+        timestamp = str(time.time()).replace(".", "")
+        filepath = ip.save(process_res, f"{uid}_{timestamp}.{img_format}")
+            
+        res = {"filepath": filepath,}
+        return JsonResponse(res, safe=False)
+    
+    return redirect("/pixelate")
+
 def test(request):
-    ip = ImageProcesser()
-    
-    img_data = Fake.get_byte_image()
-    img_buf, size = img_data["image"], img_data["size"]
-    img_ary = ip.byte_to_image(img_buf, (size[1], size[0], 3))
-    scale = 32
-    
-    cv2.imshow("Original", img_ary[:, :, ::-1])
-    cv2.waitKey(0)
-    
-    img_res = ip.process(img_ary, 24, 'rgb', scale)
-    cv2.imshow("24-bit pixel", img_res[:, :, ::-1])
-    cv2.waitKey(0)
-    img = Image.fromarray(img_res)
-    img.save("./static/imgs/test/24-bit.png")
-    
-    img_res = ip.process(img_ary, 12, 'rgb', scale)
-    cv2.imshow("12-bit pixel", img_res[:, :, ::-1])
-    cv2.waitKey(0)
-    img = Image.fromarray(img_res)
-    img.save("./static/imgs/test/12-bit.png")
-    
-    
-    img_res = ip.process(img_ary, 6, 'rgb', scale)
-    cv2.imshow("6-bit pixel", img_res[:, :, ::-1])
-    cv2.waitKey(0)
-    img = Image.fromarray(img_res)
-    img.save("./static/imgs/test/6-bit.png")
-    
-    img_res = ip.process(img_ary, 3, 'rgb', scale)
-    cv2.imshow("3-bit pixel", img_res[:, :, ::-1])
-    cv2.waitKey(0)
-    img = Image.fromarray(img_res)
-    img.save("./static/imgs/test/3-bit.png")
-    
+    tests.test_pixelate()
+    tests.test_client_request()
     return HttpResponse("test")
