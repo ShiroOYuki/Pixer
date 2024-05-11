@@ -1,0 +1,5 @@
+[client]
+database = pixer_db
+user = pixer
+password = pixer
+default-character-set = utf8
