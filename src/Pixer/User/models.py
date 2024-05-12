@@ -62,4 +62,13 @@ class PixerUser(models.Model):
             return False, None, None
         
         return True, user_manager, user
+    
+    @classmethod
+    def user_validation(cls, uid: str, session_id:str) -> tuple[bool, Manager["PixerUser"], dict]:
+        # login with username
+        user_manager = cls.objects.filter(uid=uid, session_id=session_id)
+        if not user_manager.exists(): return False, None, None
         
+        user = user_manager.values().first()
+        
+        return True, user_manager, user

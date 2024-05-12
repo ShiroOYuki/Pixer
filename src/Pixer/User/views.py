@@ -135,3 +135,30 @@ def update_user(request):
     
     # 如果接收到的不是 POST 請求，就直接導回 /user
     return redirect("/user")
+
+def get_user_data(request):
+    if request.method == "POST":
+        uid = request.POST.get("uid")
+        session_id = request.POST.get("session_id")
+        targets = request.POST.getlist("targets[]")
+        
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
+        if targets is None: return HttpResponseBadRequest("key `targets` is required")
+        
+        # validation
+        is_login, _, user = PixerUser.user_validation(uid, session_id)
+        if not is_login: return HttpResponseBadRequest("login failed")
+        
+        try:
+            res = dict()
+            for target in targets:
+                res[target] = user.get(target)
+                
+            return JsonResponse(res)
+        except:
+            return HttpResponseServerError("unknown error")
+        
+        
+    # 如果接收到的不是 POST 請求，就直接導回 /user
+    return redirect("/user")
