@@ -1,0 +1,30 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/User/Login/css/login.css">
+{% endblock css %}
+
+{% block js %}
+<script src="/static/User/Login/js/login.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="login-container">
+    <form id="login-form">
+        <h2>Login</h2>
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock body %}

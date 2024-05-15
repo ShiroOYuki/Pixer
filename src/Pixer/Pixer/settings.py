@@ -56,12 +56,13 @@ ROOT_URLCONF = 'Pixer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
+        'DIRS': [ #html folder
             BASE_DIR / "static" / "templates",
             BASE_DIR / "static" / "Homepage",
             BASE_DIR / "static" / "Pixelate",
             BASE_DIR / "static" / "Gallery",
             BASE_DIR / "static" / "User",
+            BASE_DIR / "static" / "User" / "Login"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

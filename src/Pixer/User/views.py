@@ -10,6 +10,7 @@ import datetime
 def index(request):
     return HttpResponse("Hello User!")
 
+<<<<<<< Updated upstream
 def create_user(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -162,3 +163,7 @@ def get_user_data(request):
         
     # 如果接收到的不是 POST 請求，就直接導回 /user
     return redirect("/user")
+=======
+def login_page(request):
+    return render(request, "login.html")
+>>>>>>> Stashed changes
