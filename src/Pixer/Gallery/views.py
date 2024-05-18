@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError, HttpResponseForbidden
 
 from libs.utils.GalleryTools import get_image_data
 from libs.utils.UserTools import generate_session_id
@@ -12,7 +12,6 @@ def index(request):
 
 def image_page(request, image_id:str):
     uid = request.GET.get("uid") # 在網址後面接 ?uid=<your_uid>
-    print(uid)
     if uid == "": uid = None
     
     data = get_image_data(image_id, uid) # 回傳圖片的各種資料(參考 DB: pixer_images)
@@ -55,5 +54,60 @@ def toggle_favorite(request):
             )
         
         return HttpResponse("OK")
+    
+    return redirect("/gallery")
+
+def get_page(request):
+    if request.method == "POST":
+        page = request.POST.get("page")
+        limit = request.POST.get("limit")
+        
+        try:
+            if page is None or not page.isdigit(): page = 1
+            if limit is None or not limit.isdigit(): limit = 8
+            
+            page = int(page)
+            limit = int(limit)
+            
+            start = limit * (page-1)
+            end = start + limit
+            
+            data = list(PixerImages.objects.all().order_by("-create_time")[start:end].values())
+        
+            return JsonResponse(data, safe=False)
+        except:
+            return HttpResponseServerError("unknown error")
+    return HttpResponseBadRequest("unsupported method")
+
+def update_image_info(request):
+    if request.method == "POST":
+        uid = request.POST.get("uid")
+        session_id = request.POST.get("session_id")
+        image_id = request.POST.get("image_id")
+        title = request.POST.get("title")
+        desc = request.POST.get("description")
+        
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
+        if image_id is None: return HttpResponseBadRequest("key `image_id` is required")
+        
+        # validation
+        if not PixerImages.check_is_author(image_id, uid): return HttpResponseBadRequest("permission denied")
+        
+        is_login, _, _ = PixerUser.user_validation(uid, session_id)
+        if not is_login: return HttpResponseBadRequest("validation failed")
+        
+        try:
+            image_manager = PixerImages.objects.filter(image_id=image_id)
+            if title is None: title = image_manager.values().first().get("title")
+            if desc is None: desc = image_manager.values().first().get("description")
+            
+            image_manager.update(
+                title=title,
+                description=desc
+            )
+            return HttpResponse("OK")
+        except:
+            return HttpResponseServerError("unknown error")
     
     return redirect("/gallery")

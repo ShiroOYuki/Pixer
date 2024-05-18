@@ -29,7 +29,9 @@ class PixerImages(models.Model):
         
         return data.values().first()
     
-    
+    @classmethod
+    def check_is_author(cls, image_id: str, uid: str):
+        return cls.objects.filter(image_id=image_id, uid=uid)
     
 class PixerFavorites(models.Model):
     favorite_id = models.CharField(primary_key=True, max_length=45)
