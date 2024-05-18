@@ -148,7 +148,7 @@ def get_user_data(request):
         
         # validation
         is_login, _, user = PixerUser.user_validation(uid, session_id)
-        if not is_login: return HttpResponseBadRequest("login failed")
+        if not is_login: return HttpResponseBadRequest("validation failed")
         
         try:
             res = dict()

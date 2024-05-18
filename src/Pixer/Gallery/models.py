@@ -8,13 +8,16 @@
 from django.db import models
 
 
-class PixerGallery(models.Model):
-    gallery_id = models.CharField(primary_key=True, max_length=40, db_collation='utf8mb3_bin')
-    image_id = models.CharField(unique=True, max_length=40)
+class PixerImages(models.Model):
+    image_id = models.CharField(primary_key=True, max_length=40, db_collation='utf8mb4_bin')
+    uid = models.CharField(max_length=20, db_collation='utf8mb4_bin')
+    filepath = models.CharField(max_length=100, db_collation='utf8mb4_bin')
+    create_time = models.DateTimeField(blank=True, null=True)
+    format = models.CharField(max_length=10, db_collation='utf8mb4_bin', blank=True, null=True)
     download_times = models.IntegerField(blank=True, null=True)
-    title = models.CharField(max_length=45, db_collation='utf8mb3_bin', blank=True, null=True)
-    description = models.CharField(max_length=100, db_collation='utf8mb3_bin', blank=True, null=True)
+    title = models.CharField(max_length=45, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'pixer_gallery'
+        db_table = 'pixer_images'

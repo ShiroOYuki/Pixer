@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
 
 import time
+import os
+import datetime
 
 from Pixelate import tests
 from Pixelate.ImageProcesser import ImageProcesser
+from Gallery.models import PixerImages
+from User.models import PixerUser
+from libs.utils.UserTools import generate_session_id
 
 # Create your views here.
 def index(request):
@@ -41,8 +46,50 @@ def process_image(request):
         timestamp = str(time.time()).replace(".", "")
         filepath = ip.save(process_res, f"{uid}_{timestamp}.{img_format}")
             
-        res = {"filepath": filepath,}
+        res = {"filepath": filepath}
         return JsonResponse(res, safe=False)
+    
+    return redirect("/pixelate")
+
+def upload_gallery(request):
+    if request.method == "POST":
+        image_path = request.POST.get("filepath")
+        uid = request.POST.get("uid")
+        session_id = request.POST.get("session_id")
+        title = request.POST.get("title")
+        desc = request.POST.get("description")
+        
+        if image_path is None: return HttpResponseBadRequest("key `filepath` is required")
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
+        
+        if not os.path.exists(image_path): return HttpResponseBadRequest("filepath not exists")
+        if title is None: title = "noname"
+        
+        is_login, _, _ = PixerUser.user_validation(uid, session_id)
+        if not is_login: return HttpResponseBadRequest("validation failed")
+        
+        image_format = image_path.split(".")[-1]
+        create_time = datetime.datetime.now()
+        while True:
+            image_id = generate_session_id()
+            if not PixerImages.objects.filter(image_id=image_id).exists(): 
+                break
+            
+        PixerImages.objects.create(
+            image_id=image_id,
+            uid=uid,
+            filepath=image_path,
+            create_time=create_time,
+            format=image_format,
+            download_times=0,
+            title=title,
+            description=desc
+        )
+        return JsonResponse({
+            "image_id": image_id,
+            "link_url": f"/gallery/{image_id}"
+        })
     
     return redirect("/pixelate")
 
