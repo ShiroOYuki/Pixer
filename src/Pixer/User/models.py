@@ -72,3 +72,9 @@ class PixerUser(models.Model):
         user = user_manager.values().first()
         
         return True, user_manager, user
+    
+    @classmethod
+    def get_username(cls, uid: str):
+        user_manager = cls.objects.filter(uid=uid)
+        if not user_manager.exists(): return None
+        return user_manager.values().first().get("username")

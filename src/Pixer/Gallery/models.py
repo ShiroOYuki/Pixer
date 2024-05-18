@@ -21,3 +21,21 @@ class PixerImages(models.Model):
     class Meta:
         managed = False
         db_table = 'pixer_images'
+        
+    @classmethod
+    def get_image_data(cls, image_id:str):
+        data = cls.objects.filter(image_id=image_id)
+        if not data.exists(): return None
+        
+        return data.values().first()
+    
+    
+    
+class PixerFavorites(models.Model):
+    favorite_id = models.CharField(primary_key=True, max_length=45)
+    image_id = models.CharField(max_length=45)
+    uid = models.CharField(max_length=45)
+
+    class Meta:
+        managed = False
+        db_table = 'pixer_favorites'
