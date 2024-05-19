@@ -88,7 +88,7 @@ def upload_gallery(request):
         )
         return JsonResponse({
             "image_id": image_id,
-            "link_url": f"/gallery/{image_id}"
+            "link_url": f"/gallery/image/{image_id}"
         })
     
     return redirect("/pixelate")
