@@ -8,6 +8,7 @@
 from django.db import models
 from django.db.models import Manager
 from libs.utils.UserTools import check_password
+from typing import Literal
 
 class PixerUser(models.Model):
     uid = models.CharField(primary_key=True, max_length=20)
@@ -78,3 +79,26 @@ class PixerUser(models.Model):
         user_manager = cls.objects.filter(uid=uid)
         if not user_manager.exists(): return None
         return user_manager.values().first().get("username")
+    
+class PixerWallet(models.Model):
+    uid = models.CharField(primary_key=True, max_length=20)
+    pixel = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'pixer_wallet'
+        
+    @classmethod
+    def add_pixel(cls, target_uid: str, feature: Literal["sell"]):
+        wallet_manager = cls.objects.filter(uid=target_uid)
+        if not wallet_manager.exists(): return False
+        
+        try:
+            
+            pixel = float(wallet_manager.values().first().get("pixel"))
+            
+            if feature == "sell": pixel += 0.6
+            wallet_manager.update(pixel=pixel)
+            return True
+        except:
+            return False
