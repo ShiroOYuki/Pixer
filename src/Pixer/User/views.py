@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError, JsonResponse
+from django.http import HttpRequest
 from django.db.models import Manager
 from User.models import PixerUser, PixerWallet
 from libs.utils.UserTools import check_email, generate_uuid, encrypt_password, generate_session_id
@@ -51,7 +52,7 @@ def create_user(request):
             
             PixerWallet.objects.create(
                 uid=uid,
-                pixel=0
+                pixel=5
             )
             return HttpResponse("OK")
         except Exception as e:
@@ -165,4 +166,23 @@ def get_user_data(request):
         
         
     # 如果接收到的不是 POST 請求，就直接導回 /user
+    return redirect("/user")
+
+def get_wallet(request: HttpRequest):
+    if request.method == "POST":
+        uid = request.POST.get("uid")
+        session_id = request.POST.get("session_id")
+        
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
+        
+        # validation
+        is_login, _, user = PixerUser.user_validation(uid, session_id)
+        if not is_login: return HttpResponseBadRequest("validation failed")
+        
+        success, pixel = PixerWallet.get_pixel_count(uid)
+        if not success: return HttpResponseBadRequest("wallet not exists")
+        
+        return JsonResponse({"pixel": pixel})
+    
     return redirect("/user")

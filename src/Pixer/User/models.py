@@ -89,16 +89,26 @@ class PixerWallet(models.Model):
         db_table = 'pixer_wallet'
         
     @classmethod
-    def add_pixel(cls, target_uid: str, feature: Literal["sell"]):
+    def change_pixel(cls, target_uid: str, feature: Literal["buy", "sell", "buy_failed", "upload"]):
         wallet_manager = cls.objects.filter(uid=target_uid)
         if not wallet_manager.exists(): return False
         
         try:
-            
             pixel = float(wallet_manager.values().first().get("pixel"))
             
-            if feature == "sell": pixel += 0.6
+            if feature == "sell": pixel += 0.2
+            if feature == "buy": 
+                if pixel < 1: return False
+                pixel -= 1
+            if feature == "buy_failed": pixel += 1
+            if feature == "upload": pixel += 0.1
             wallet_manager.update(pixel=pixel)
             return True
         except:
             return False
+        
+    @classmethod
+    def get_pixel_count(cls, uid: str):
+        wallet_manager = cls.objects.filter(uid=uid)
+        if not wallet_manager.exists(): return False, 0
+        return True, wallet_manager.values().first().get("pixel")

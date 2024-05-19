@@ -10,4 +10,5 @@ urlpatterns = [
     path('page', views.get_page, name="get_page"),
     path('update', views.update_image_info, name="update_image_info"),
     path('remove', views.remove_gallery, name="remove_gallery"),
+    path('download', views.download, name="download_gallery")
 ]

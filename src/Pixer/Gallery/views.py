@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError, HttpRequest
 
 
 from libs.utils.GalleryTools import get_image_data
 from libs.utils.UserTools import generate_session_id
 from Gallery.models import PixerImages, PixerFavorites
-from User.models import PixerUser
+from User.models import PixerUser, PixerWallet
 
 # Create your views here.
 def index(request):
@@ -123,19 +123,54 @@ def remove_gallery(request):
         if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
         if image_id is None: return HttpResponseBadRequest("key `image_id` is required")
         
-        image_manager = PixerImages.objects.filter(image_id=image_id)
+        
         
         # validation
-        if not image_manager.exists(): return HttpResponseBadRequest("gallery not exists")
+        if not PixerImages.check_is_exist(image_id): return HttpResponseBadRequest("gallery not exists")
         if not PixerImages.check_is_author(image_id, uid): return HttpResponseBadRequest("permission denied")
         
         is_login, _, _ = PixerUser.user_validation(uid, session_id)
         if not is_login: return HttpResponseBadRequest("validation failed")
         
         try:
+            image_manager = PixerImages.objects.filter(image_id=image_id)
             image_manager.delete()
             return HttpResponse("OK")
         except:
             return HttpResponseServerError("unknown error")
     
     return redirect("/gallery")
+
+def download(request: HttpRequest):
+    if request.method == "POST":
+        uid = request.POST.get("uid")
+        session_id = request.POST.get("session_id")
+        image_id = request.POST.get("image_id")
+        
+        if uid is None: return HttpResponseBadRequest("key `uid` is required")
+        if session_id is None: return HttpResponseBadRequest("key `session_id` is required")
+        if image_id is None: return HttpResponseBadRequest("key `image_id` is required")
+        
+        # validation
+        if not PixerImages.check_is_exist(image_id): return HttpResponseBadRequest("gallery not exists")
+        
+        is_login, _, _ = PixerUser.user_validation(uid, session_id)
+        if not is_login: return HttpResponseBadRequest("validation failed")
+        
+        try:
+            author_id = PixerImages.get_image_data(image_id).get("uid")
+            
+            if uid == author_id: return HttpResponse("OK")
+            
+            success = PixerWallet.change_pixel(uid, "buy")
+            if not success: return HttpResponseBadRequest("not enough pixel to buy")
+            
+            success = PixerWallet.change_pixel(author_id, "sell")
+            if not success: 
+                PixerWallet.change_pixel(uid, "buy_failed")
+                return HttpResponseServerError("unknown error")
+            
+            PixerImages.add_download_times(image_id)
+            return HttpResponse("OK")
+        except:
+            return HttpResponseServerError("unknown error")

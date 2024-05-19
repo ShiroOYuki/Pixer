@@ -8,7 +8,7 @@ import datetime
 from Pixelate import tests
 from Pixelate.ImageProcesser import ImageProcesser
 from Gallery.models import PixerImages
-from User.models import PixerUser
+from User.models import PixerUser, PixerWallet
 from libs.utils.UserTools import generate_session_id
 
 # Create your views here.
@@ -86,6 +86,9 @@ def upload_gallery(request):
             title=title,
             description=desc
         )
+        
+        PixerWallet.change_pixel(uid, "upload")
+        
         return JsonResponse({
             "image_id": image_id,
             "link_url": f"/gallery/image/{image_id}"

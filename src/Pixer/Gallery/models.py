@@ -33,6 +33,15 @@ class PixerImages(models.Model):
     def check_is_author(cls, image_id: str, uid: str):
         return cls.objects.filter(image_id=image_id, uid=uid)
     
+    @classmethod
+    def check_is_exist(cls, image_id: str):
+        return cls.objects.filter(image_id=image_id).exists()
+    
+    @classmethod
+    def add_download_times(cls, image_id: str):
+        times = cls.get_image_data(image_id).get("download_times")
+        cls.objects.filter(image_id=image_id).update(download_times=times+1)
+    
 class PixerFavorites(models.Model):
     favorite_id = models.CharField(primary_key=True, max_length=45)
     image_id = models.CharField(max_length=45)
