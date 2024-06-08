@@ -10,5 +10,6 @@ urlpatterns = [
     path('update', views.update_user, name="update_user"),
     path('data', views.get_user_data, name="get_user_data"),
     path('login_page', views.login_page, name="login_page"),
-    path('register_page', views.register_page, name="register_page")
+    path('register_page', views.register_page, name="register_page"),
+    path('update_page', views.update_page, name="update_page")
 ]

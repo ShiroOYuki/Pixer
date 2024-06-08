@@ -168,3 +168,6 @@ def login_page(request):
 
 def register_page(request):
     return render(request, "register.html")
+
+def update_page(request):
+    return render(request, "update.html")

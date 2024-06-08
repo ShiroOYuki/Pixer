@@ -12,21 +12,28 @@ Update
 <script src="/static/User/Update/js/update.js" async defer></script>
 {% endblock js %}
 
+{% block header %}
+{% endblock header %}
+
 {% block body %}
 <div class="update-container">
     <form class="update-form" id="update-form" method="post">
         <h2>Update Information</h2>
         <div class="input-group">
             <input type="password" id="old_password" name="old_password" required>
+            <label>Old Password</label>
         </div>
         <div class="input-group">
             <input type="text" id="new_username" name="new_username" required>
+            <label>New Username ( optional )</label>
         </div>
         <div class="input-group">
             <input type="text" id="new_email" name="new_email" required>
+            <label>New Email ( optional )</label>
         </div>
         <div class="input-group">
             <input type="password" id="new_password" name="new_password" required>
+            <label>New Password ( optional )</label>
         </div>
         <button type="submit" class="button">Update</button>
     </form>

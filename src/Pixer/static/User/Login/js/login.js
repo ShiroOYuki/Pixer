@@ -30,7 +30,7 @@ $(document).ready(() => {
 
         console.log("Cookies set: ", document.cookie);
 
-        window.location.href = "#";
+        window.location.href = "../homepage";
       },
       error: (res) => {
         console.error("Error", res);

@@ -63,7 +63,8 @@ TEMPLATES = [
             BASE_DIR / "static" / "Gallery",
             BASE_DIR / "static" / "User",
             BASE_DIR / "static" / "User" / "Login",
-            BASE_DIR / "static" / "User" / "Register"
+            BASE_DIR / "static" / "User" / "Register",
+            BASE_DIR / "static" / "User" / "Update"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

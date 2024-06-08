@@ -82,7 +82,7 @@ form input, form textarea {
 }
 
 form button {
-    width: 105%;
+    width: 100%;
     padding: 10px;
     background-color: #333;
     color: #fff;
