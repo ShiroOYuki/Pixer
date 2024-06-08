@@ -8,6 +8,7 @@
 from django.db import models
 from django.db.models import Manager
 from libs.utils.UserTools import check_password
+from typing import Literal
 
 class PixerUser(models.Model):
     uid = models.CharField(primary_key=True, max_length=20)
@@ -72,3 +73,42 @@ class PixerUser(models.Model):
         user = user_manager.values().first()
         
         return True, user_manager, user
+    
+    @classmethod
+    def get_username(cls, uid: str):
+        user_manager = cls.objects.filter(uid=uid)
+        if not user_manager.exists(): return None
+        return user_manager.values().first().get("username")
+    
+class PixerWallet(models.Model):
+    uid = models.CharField(primary_key=True, max_length=20)
+    pixel = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'pixer_wallet'
+        
+    @classmethod
+    def change_pixel(cls, target_uid: str, feature: Literal["buy", "sell", "buy_failed", "upload"]):
+        wallet_manager = cls.objects.filter(uid=target_uid)
+        if not wallet_manager.exists(): return False
+        
+        try:
+            pixel = float(wallet_manager.values().first().get("pixel"))
+            
+            if feature == "sell": pixel += 0.2
+            if feature == "buy": 
+                if pixel < 1: return False
+                pixel -= 1
+            if feature == "buy_failed": pixel += 1
+            if feature == "upload": pixel += 0.1
+            wallet_manager.update(pixel=pixel)
+            return True
+        except:
+            return False
+        
+    @classmethod
+    def get_pixel_count(cls, uid: str):
+        wallet_manager = cls.objects.filter(uid=uid)
+        if not wallet_manager.exists(): return False, 0
+        return True, wallet_manager.values().first().get("pixel")
