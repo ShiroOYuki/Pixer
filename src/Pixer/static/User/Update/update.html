@@ -1,0 +1,34 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/User/Update/css/update.css">
+{% endblock css %}
+
+{% block js %}
+<script src="/static/User/Update/js/update.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="update-container">
+    <form class="update-form" id="update-form" method="post">
+        <h2>Update Information</h2>
+        <div class="input-group">
+            <input type="password" id="old_password" name="old_password" required>
+        </div>
+        <div class="input-group">
+            <input type="text" id="new_username" name="new_username" required>
+        </div>
+        <div class="input-group">
+            <input type="text" id="new_email" name="new_email" required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="new_password" name="new_password" required>
+        </div>
+        <button type="submit" class="button">Update</button>
+    </form>
+</div>
+{% endblock body %}

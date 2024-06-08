@@ -50,3 +50,6 @@ def test(request):
     tests.test_pixelate()
     tests.test_client_request()
     return HttpResponse("test")
+
+def pixelate(request):
+    return render(request, "pixelate.html")

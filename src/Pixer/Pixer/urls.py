@@ -22,6 +22,6 @@ urlpatterns = [
     path("", include("Homepage.urls")),
     path("pixelate/", include("Pixelate.urls")),
     path("gallery/", include("Gallery.urls")),
-    path("User/", include("User.urls")),
+    path("user/", include("User.urls")),
     path("admin/", admin.site.urls)
 ]

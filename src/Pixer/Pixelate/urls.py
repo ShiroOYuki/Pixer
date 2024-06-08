@@ -6,5 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name="pixelate"),
     path('upload', views.process_image, name="process_image"),
-    path('test', views.test, name="test")
+    path('test', views.test, name="test"),
+    path('pixelate_page', views.pixelate, name="pixelate_page")
 ]

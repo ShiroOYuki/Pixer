@@ -1,0 +1,56 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Pixelate - Upload Image
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/Pixelate/css/pixelate.css">
+{% endblock css %}
+
+{% block js %}
+<script src="/static/Pixelate/js/pixelate.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="upload-container">
+    <h1>Upload Your Image</h1>
+    <form id="upload-form">
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <div>
+            <label for="mode">Mode:</label>
+            <select name="mode" id="mode" required>
+                <option value="rgb">RGB</option>
+                <option value="gray">Gray</option>
+            </select>
+        </div>
+        <div>
+            <label for="scale">Scale:</label>
+            <input type="number" name="scale" id="scale" min="1" required>
+        </div>
+        <div>
+            <label for="channels">Channels:</label>
+            <select name="channels" id="channels" required>
+                <option value="6">6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+            </select>
+        </div>
+        <div>
+            <label for="format">Format:</label>
+            <select name="format" id="format" required>
+                <option value="png">PNG</option>
+                <option value="jpg">JPG</option>
+            </select>
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="preview-container">
+        <h2>Image Preview:</h2>
+        <img id="image-preview" src="" alt="Image Preview">
+    </div>
+</div>
+<footer>
+    <p>&copy; Pixer. All rights reserved.</p>
+</footer>
+{% endblock body %}

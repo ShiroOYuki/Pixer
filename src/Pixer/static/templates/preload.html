@@ -3,23 +3,45 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
         {% load static %}
+        {% csrf_token %}
 
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="/static/templates/css/preload.css">
 
         <!-- Load css -->
-        {% block css%}
+        {% block css %}
         {% endblock %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
-        {% block body%}
+        {% block header %}
+        <header>
+            <h2 class="title"><a href="{% url 'homepage' %}">Pixer</a></h2>
+            <nav class="navigation">
+                <a href="#">Gallery</a>
+                <a href="../pixelate/pixelate_page">Pixelate</a>
+                <a href="#about">More</a>
+                <span class="icon"><a href="#"><ion-icon name="person-circle-outline"></ion-icon></a></span>
+                <button class="btnLogin-popup" id="btnLogin-popup">Login</button>
+            </nav>
+        </header>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+
         <!-- Load js (using async defer) -->
-        
-        {% block js%}
+        <script src="/static/templates/js/preload.js" async defer></script>
+        {% block js %}
         {% endblock %}
     </body>
 </html>

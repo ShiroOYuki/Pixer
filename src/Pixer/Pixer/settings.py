@@ -62,7 +62,8 @@ TEMPLATES = [
             BASE_DIR / "static" / "Pixelate",
             BASE_DIR / "static" / "Gallery",
             BASE_DIR / "static" / "User",
-            BASE_DIR / "static" / "User" / "Login"
+            BASE_DIR / "static" / "User" / "Login",
+            BASE_DIR / "static" / "User" / "Register"
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,6 +90,8 @@ DATABASES = {
             "read_default_file": "static/db/mysql.cnf",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'" 
         },
+        'USER': 'root',
+        'PASSWORD': 'Lu930611',
         "HOST": "127.0.0.1",
         "POST": 3306
     }

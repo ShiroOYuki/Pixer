@@ -2,7 +2,6 @@ from PIL import Image
 from typing import Literal, Optional
 import numpy as np
 import os
-import time
 
 class PixelateResultType:
     def __init__(self, image: Optional[np.ndarray], code: int, msg: str):
@@ -15,7 +14,6 @@ class ImageProcesser:
         img_ary = None
         try:
             img_ary = np.frombuffer(img_data, dtype=np.uint8).reshape(size)
-            img_ary = img_ary.reshape(size)
         except Exception as e:
             print(e)
         return img_ary
@@ -31,7 +29,7 @@ class ImageProcesser:
             if color_mode == "rgb" or color_mode == "gray":
                 res = np.ndarray(size, dtype=np.uint8)
                 for row in range(0, size[0], pixel_scale):
-                    for col in range(1, size[1], pixel_scale):
+                    for col in range(0, size[1], pixel_scale):
                         r = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 0])/255*scale)/scale * 255
                         g = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 1])/255*scale)/scale * 255
                         b = round(np.mean(image[row:row+pixel_scale, col:col+pixel_scale, 2])/255*scale)/scale * 255
@@ -48,7 +46,7 @@ class ImageProcesser:
                 msg = "OK"
             else:
                 code = 400
-                msg = f"Column color_mode '{color_mode}' is unsupported."
+                msg = f"Color mode '{color_mode}' is unsupported."
         except Exception as e: 
             print(e)
             
@@ -57,10 +55,10 @@ class ImageProcesser:
     def save(self, data: PixelateResultType, filename: str):
         img_res = data.image
         img = Image.fromarray(img_res)
-        filepath = os.path.join(os.getcwd(), r"static\Pixelate\imgs\temps", filename)
+        # 确保目录存在
+        directory = os.path.join(os.getcwd(), "static", "Pixelate", "imgs", "temps")
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        filepath = os.path.join(directory, filename)
         img.save(filepath)
         return filepath
-        
-                
-        
-        
