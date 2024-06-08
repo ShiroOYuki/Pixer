@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError, HttpRequest
 
 import time
 import os
@@ -15,16 +15,17 @@ from libs.utils.UserTools import generate_session_id
 def index(request):
     return HttpResponse("Hello Pixelate!")
 
-def process_image(request):
+def process_image(request: HttpRequest):
     if request.method == "POST":
-        img_buf = request.POST.get("image")
-        size = request.POST.get("size")
+        # img_buf = request.POST.get("image")
+        img_buf = request.FILES.get("image")
+        size = request.POST.getlist("size[]")
         mode = request.POST.get("mode")
         scale = request.POST.get("scale")
         channels = request.POST.get("channels")
         uid = request.POST.get("uid")
         img_format = request.POST.get("format")
-        
+
         if uid is None: return HttpResponseBadRequest("key `uid` is required")
         if img_buf is None: return HttpResponseBadRequest("key `image` is required")
         if size is None: return HttpResponseBadRequest("key `size` is required")
@@ -33,13 +34,19 @@ def process_image(request):
         if channels is None: return HttpResponseBadRequest("key `channels` is required")
         if img_format is None: return HttpResponseBadRequest("key `format` is required")
         
+        size = list(map(lambda x: int(x), size))
+        scale = int(scale)
+        channels = int(channels)
+        
         ip = ImageProcesser()
         
-        img_ary = ip.byte_to_image(img_buf, (size[1], size[0], 3))
+        if type(img_buf) == bytes:
+            img_ary = ip.byte_to_image(img_buf, (size[1], size[0], 3))
+        else:
+            img_ary = ip.file_to_image(img_buf.read(), (size[1], size[0], 3))
         if img_ary is None: return HttpResponseServerError("unknown error")
-            
+
         process_res = ip.process(img_ary, channels, mode, scale)
-        
         if process_res.code == 400: return HttpResponseBadRequest(process_res.msg)
         if process_res.code == 500: return HttpResponseServerError("unknown error")
         
