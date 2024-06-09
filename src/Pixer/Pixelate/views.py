@@ -110,3 +110,6 @@ def test(request):
 
 def pixelate(request):
     return render(request, "pixelate.html")
+
+def upload(request):
+    return render(request, "upload_gallery.html")

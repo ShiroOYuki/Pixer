@@ -177,6 +177,9 @@ def register_page(request):
 def update_page(request):
     return render(request, "update.html")
 
+def data_page(request):
+    return render(request, "user_information.html")
+
 def get_wallet(request: HttpRequest):
     if request.method == "POST":
         uid = request.POST.get("uid")

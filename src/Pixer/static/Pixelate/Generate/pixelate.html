@@ -5,38 +5,47 @@ Pixelate - Upload Image
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="/static/Pixelate/css/pixelate.css">
+<link rel="stylesheet" href="/static/Pixelate/Generate/css/pixelate.css">
 {% endblock css %}
 
 {% block js %}
-<script src="/static/Pixelate/js/pixelate.js" async defer></script>
+<script src="/static/Pixelate/Generate/js/pixelate.js" async defer></script>
 {% endblock js %}
 
 {% block body %}
 <div class="upload-container">
     <h1>Upload Your Image</h1>
-    <form id="upload-form">
-        <input type="file" name="image" id="image" accept="image/*" required>
-        <div>
+    <form id="upload-form" class="upload-form">
+        <div class="form-row">
+            <label for="image">Choose Image:</label>
+            <input type="file" name="image" id="image" accept="image/*" required>
+        </div>
+        <div class="form-row">
             <label for="mode">Mode:</label>
             <select name="mode" id="mode" required>
                 <option value="rgb">RGB</option>
                 <option value="gray">Gray</option>
             </select>
         </div>
-        <div>
+        <div class="form-row">
             <label for="scale">Scale:</label>
             <input type="number" name="scale" id="scale" min="1" required>
         </div>
-        <div>
-            <label for="channels">Channels:</label>
-            <select name="channels" id="channels" required>
-                <option value="6">6</option>
-                <option value="12">12</option>
-                <option value="24">24</option>
-            </select>
+        <div class="form-row">
+            <label>Channels:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="channels" value="6" checked> 6
+                </label>
+                <label>
+                    <input type="radio" name="channels" value="12"> 12
+                </label>
+                <label>
+                    <input type="radio" name="channels" value="24"> 24
+                </label>
+            </div>
         </div>
-        <div>
+        <div class="form-row">
             <label for="format">Format:</label>
             <select name="format" id="format" required>
                 <option value="png">PNG</option>
@@ -44,7 +53,7 @@ Pixelate - Upload Image
             </select>
         </div>
         <button type="submit">Upload</button>
-    </form>
+    </form>    
     <div id="preview-container">
         <h2>Image Preview:</h2>
         <img id="image-preview" src="" alt="Image Preview">

@@ -1,0 +1,28 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Image Page
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/Gallery/Image_Page/css/image_page.css">
+{% endblock css %}
+
+{% block js %}
+<script src="/static/Gallery/Image_Page/js/image_page.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="container">
+    <div class="left">
+        <img id="image" src="" alt="Image">
+    </div>
+    <div class="right">
+        <p><strong>Author:</strong> <span id="author"></span></p>
+        <p><strong>Downloads:</strong> <span id="downloads"></span></p>
+        <p><strong>Created At:</strong> <span id="created_at"></span></p>
+        <p><strong>Title:</strong> <span id="title"></span></p>
+        <p><strong>Description:</strong> <span id="description"></span></p>
+    </div>
+</div>
+{% endblock body %}

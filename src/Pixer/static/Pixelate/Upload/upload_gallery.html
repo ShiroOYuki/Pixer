@@ -1,0 +1,22 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Image Page
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/Pixelate/Upload/css/upload_gallery.css">
+{% endblock css %}
+
+{% block js %}
+<script src="static/Pixelate/Upload/js/upload_gallery.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="container">
+    <div class="upload-from">
+        <h2>Result</h2>
+        <img id="image" src="" alt="Image">
+    </div>
+</div>
+{% endblock body %}

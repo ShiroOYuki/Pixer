@@ -1,0 +1,46 @@
+{% extends "preload.html" %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/User/User_Information/css/user_information.css">
+{% endblock css %}
+
+{% block js %}
+<script src="/static/User/User_Information/js/user_information.js" async defer></script>
+{% endblock js %}
+
+{% block body %}
+<div class="user-information">
+    <h2>User Information</h2>
+    <form id="user-form">
+        <div class="form-group">
+            <label for="uid">UID:</label>
+            <input type="text" id="uid" name="uid" readonly>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" readonly>
+        </div>
+        <div class="form-group">
+            <label for="last_login">Last Login:</label>
+            <input type="text" id="last_login" name="last_login" readonly>
+        </div>
+        <div class="form-group">
+            <label for="create_time">Create Time:</label>
+            <input type="text" id="create_time" name="create_time" readonly>
+        </div>
+        <div class="form-group">
+            <label for="pixel">Pixel:</label>
+            <input type="text" id="pixel" name="pixel" readonly>
+        </div>
+        <a class="btnUpdate-popup" id="btnUpdate-popup" href="update_page">Update Information</a>
+    </form>
+</div>
+{% endblock body %}

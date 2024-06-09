@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.upload-container {
+    text-align: center;
+    margin: 50px auto;
+    width: 50%;
+}
+
+.upload-form {
+    max-width: 375px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    margin-right: 10px;
+}
+
+.form-row input[type="file"],
+.form-row select,
+.form-row input[type="number"] {
+    flex: 1;
+}
+
+.form-row .radio-group input{
+    accent-color: #000;
+    margin-right: 3px;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    border-color: black; /* 将边框颜色设置为黑色 */
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+button[type="submit"]:hover {
+    background-color: #000;
+}
+
+#preview-container {
+    margin-top: 20px;
+}
+
+#image-preview {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+}

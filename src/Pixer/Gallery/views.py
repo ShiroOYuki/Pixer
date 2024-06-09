@@ -174,3 +174,6 @@ def download(request: HttpRequest):
             return HttpResponse("OK")
         except:
             return HttpResponseServerError("unknown error")
+        
+def image_page(request):
+    return render(request, "image_page.html")

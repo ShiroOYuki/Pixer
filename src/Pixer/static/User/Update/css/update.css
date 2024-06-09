@@ -20,7 +20,7 @@ body {
     align-items: center;
 }
 
-.update-container .login-form{
+.update-container .update-form{
     width: 100%;
     padding: 30px 40px;
 }
@@ -29,6 +29,7 @@ h2 {
     font-size: 2em;
     color: #333;
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .input-group {
@@ -41,7 +42,7 @@ h2 {
 
 .input-group label {
     position: absolute;
-    top: 50%;
+    top: -5%;
     left: 5px;
     transform: translateY(-50%);
     font-size: 1em;
@@ -49,11 +50,6 @@ h2 {
     font-weight: 550;
     pointer-events: none;
     transition: .5s;
-}
-
-.input-group input:focus~label,
-.input-group input:valid~label{
-    top: -5px;
 }
 
 .input-group input {
@@ -74,6 +70,12 @@ h2 {
     font-size: 1.2em;
     color: #000;
     line-height: 57px;
+}
+
+.back-icon ion-icon{
+    font-size: 30px;
+    color: #333;
+    transition: .5s;
 }
 
 .home-icon ion-icon{

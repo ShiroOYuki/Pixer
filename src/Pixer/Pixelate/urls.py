@@ -8,5 +8,6 @@ urlpatterns = [
     path('upload', views.process_image, name="process_image"),
     path('test', views.test, name="test"),
     path('pixelate_page', views.pixelate, name="pixelate_page"),
-    path('upload-gallery', views.upload_gallery, name="upload_to_gallery")
+    path('upload-gallery', views.upload_gallery, name="upload_to_gallery"),
+    path('upload_page', views.upload, name="upload_page")
 ]

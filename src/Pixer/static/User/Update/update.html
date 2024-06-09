@@ -18,24 +18,31 @@ Update
 {% block body %}
 <div class="update-container">
     <form class="update-form" id="update-form" method="post">
+        <span class="back-icon"><a href="../user/data_page"><ion-icon name="arrow-back-outline"></ion-icon></a></span>
         <h2>Update Information</h2>
-        <div class="input-group">
+        <div class="input-group old_password">
+            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
             <input type="password" id="old_password" name="old_password" required>
             <label>Old Password</label>
         </div>
-        <div class="input-group">
-            <input type="text" id="new_username" name="new_username" required>
+        <div class="input-group new-username">
+            <span class="icon"><ion-icon name="person"></ion-icon></span>
+            <input type="text" id="new_username" name="new_username">
             <label>New Username ( optional )</label>
         </div>
-        <div class="input-group">
-            <input type="text" id="new_email" name="new_email" required>
+        <div class="input-group new-email">
+            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+            <input type="text" id="new_email" name="new_email">
             <label>New Email ( optional )</label>
         </div>
-        <div class="input-group">
-            <input type="password" id="new_password" name="new_password" required>
+        <div class="input-group new-password">
+            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+            <input type="password" id="new_password" name="new_password">
             <label>New Password ( optional )</label>
         </div>
         <button type="submit" class="button">Update</button>
     </form>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 {% endblock body %}

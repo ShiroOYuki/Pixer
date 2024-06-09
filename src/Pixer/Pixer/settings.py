@@ -61,11 +61,15 @@ TEMPLATES = [
             BASE_DIR / "static" / "templates",
             BASE_DIR / "static" / "Homepage",
             BASE_DIR / "static" / "Pixelate",
+            BASE_DIR / "static" / "Pixelate" / "Generate",
+            BASE_DIR / "static" / "Pixelate" / "Upload",
             BASE_DIR / "static" / "Gallery",
+            BASE_DIR / "static" / "Gallery" / "Image_Page",
             BASE_DIR / "static" / "User",
             BASE_DIR / "static" / "User" / "Login",
             BASE_DIR / "static" / "User" / "Register",
-            BASE_DIR / "static" / "User" / "Update"
+            BASE_DIR / "static" / "User" / "Update",
+            BASE_DIR / "static" / "User" / "User_Information"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

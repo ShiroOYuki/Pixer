@@ -24,53 +24,47 @@ document.addEventListener("DOMContentLoaded", function () {
     const csrftoken = getCookie("csrftoken");
     const uid = getCookie("uid");
     const mode = document.getElementById("mode").value;
-    const scale = parseInt(document.getElementById("scale").value);
-    const channels = parseInt(document.getElementById("channels").value);
+    const scale = document.getElementById("scale").value;
+    const channels = document.querySelector(
+      'input[name="channels"]:checked'
+    ).value;
     const format = document.getElementById("format").value;
 
     const file = imageInput.files[0];
-    const reader = new FileReader();
 
-    reader.onload = function (event) {
-      const arrayBuffer = event.target.result;
-      const byteArray = new Uint8Array(arrayBuffer);
-      let binaryString = "";
-      for (let i = 0; i < byteArray.length; i++) {
-        binaryString += String.fromCharCode(byteArray[i]);
-      }
-      const imageData = btoa(binaryString); // 使用 base64 编码
+    const formData = new FormData();
+    formData.append("uid", uid);
+    formData.append("image", file);
+    formData.append("mode", mode);
+    formData.append("scale", scale);
+    formData.append("channels", channels);
+    formData.append("format", format);
 
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = function () {
-        const formDataObject = {
-          uid: uid,
-          image: imageData, // 以字符串形式传递图像数据
-          size: [img.height, img.width],
-          mode: mode,
-          scale: scale,
-          channels: channels,
-          format: format,
-        };
+    // 创建图像对象以获取尺寸
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = function () {
+      formData.append("size[]", img.height);
+      formData.append("size[]", img.width);
 
-        $.ajax({
-          url: "http://127.0.0.1:8000/pixelate/upload",
-          type: "POST",
-          data: formDataObject,
-          processData: false,
-          headers: { "X-CSRFToken": csrftoken },
-          success: (res) => {
-            console.log(res);
-            window.location.href = "#";
-          },
-          error: (res) => {
-            console.log(formDataObject);
-            console.error("Error", res);
-          },
-        });
-      };
+      console.log(formData);
+      // 发送请求
+      $.ajax({
+        url: "http://127.0.0.1:8000/pixelate/upload",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: { "X-CSRFToken": csrftoken },
+        success: (res) => {
+          console.log(res);
+          window.location.href = "#";
+        },
+        error: (res) => {
+          console.error("Error", res);
+        },
+      });
     };
-    reader.readAsArrayBuffer(file);
   });
 
   function getCookie(name) {
