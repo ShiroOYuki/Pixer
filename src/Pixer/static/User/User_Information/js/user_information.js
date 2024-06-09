@@ -1,4 +1,16 @@
 $(document).ready(() => {
+  $("#btnSignout-popup").click(function (event) {
+    event.preventDefault(); // 阻止默认行为
+
+    // 清除 uid 和 session_id cookie
+    document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "session_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // 页面重定向到登出页面
+    window.location.href = $(this).attr("href");
+  });
+
   const csrftoken = getCookie("csrftoken");
 
   const uid = getCookie("uid");

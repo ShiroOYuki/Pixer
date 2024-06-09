@@ -24,11 +24,11 @@
         {% block header %}
         <header>
             <h2 class="title"><a href="{% url 'homepage' %}">Pixer</a></h2>
-            <nav class="navigation">
+            <nav class="navigation" id="navigation">
                 <a href="#">Gallery</a>
                 <a href="../pixelate/pixelate_page">Pixelate</a>
                 <a href="#about">More</a>
-                <span class="icon"><a href="../user/data_page"><ion-icon name="person-circle-outline"></ion-icon></a></span>
+                <span class="icon" id="icon"><a href="../user/data_page"><ion-icon name="person-circle-outline"></ion-icon></a></span>
                 <button class="btnLogin-popup" id="btnLogin-popup" onclick="location.href='../user/login_page'">Login</button>
             </nav>
         </header>

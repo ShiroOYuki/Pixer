@@ -62,7 +62,8 @@ body {
     padding: 0 35px 0 5px;
 }
 
-.btnUpdate-popup {
+.btnUpdate-popup,
+.btnSignout-popup{
     display: block;
     width: 97%;
     padding: 10px;
@@ -71,9 +72,11 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 6px;
+    margin-bottom: 15px;
     transition: background-color 0.5s ease;
 }
 
-.btnUpdate-popup:hover {
+.btnUpdate-popup:hover,
+.btnSignout-popup:hover {
     background-color: #000;
 }
