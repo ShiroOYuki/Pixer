@@ -17,9 +17,7 @@ def index(request):
 
 def process_image(request: HttpRequest):
     if request.method == "POST":
-        # img_buf = request.POST.get("image")
         img_buf = request.FILES.get("image")
-        size = request.POST.getlist("size[]")
         mode = request.POST.get("mode")
         scale = request.POST.get("scale")
         channels = request.POST.get("channels")
@@ -28,7 +26,6 @@ def process_image(request: HttpRequest):
 
         if uid is None: return HttpResponseBadRequest("key `uid` is required")
         if img_buf is None: return HttpResponseBadRequest("key `image` is required")
-        if size is None: return HttpResponseBadRequest("key `size` is required")
         if mode is None: return HttpResponseBadRequest("key `mode` is required")
         if scale is None: return HttpResponseBadRequest("key `scale` is required")
         if channels is None: return HttpResponseBadRequest("key `channels` is required")
@@ -40,10 +37,8 @@ def process_image(request: HttpRequest):
         
         ip = ImageProcesser()
         
-        if type(img_buf) == bytes:
-            img_ary = ip.byte_to_image(img_buf, (size[1], size[0], 3))
-        else:
-            img_ary = ip.file_to_image(img_buf.read(), (size[1], size[0], 3))
+        img_ary, size = ip.file_to_image(img_buf.read())
+        
         if img_ary is None: return HttpResponseServerError("unknown error")
 
         process_res = ip.process(img_ary, channels, mode, scale)
