@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // formData.append("format", format);
 
     // 创建图像对象以获取尺寸
-    const img = new Image();
+    var img = new Image();
     img.src = URL.createObjectURL(file);
     img.onload = function () {
       const data = {
