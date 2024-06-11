@@ -31,7 +31,6 @@ def process_image(request: HttpRequest):
         if channels is None: return HttpResponseBadRequest("key `channels` is required")
         if img_format is None: return HttpResponseBadRequest("key `format` is required")
         
-        size = list(map(lambda x: int(x), size))
         scale = int(scale)
         channels = int(channels)
         

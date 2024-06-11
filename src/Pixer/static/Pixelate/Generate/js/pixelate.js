@@ -41,54 +41,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // formData.append("channels", channels);
     // formData.append("format", format);
 
-    // 创建图像对象以获取尺寸
-    var img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = function () {
-      const data = {
-        uid: uid,
-        image: file,
-        "size[]": [JSON.stringify(img.height), JSON.stringify(img.width)],
-        mode: mode,
-        scale: scale,
-        channels: channels,
-        format: format,
-      };
-      // formData.append("size[]", img.height);
-      // formData.append("size[]", img.width);
-
-      const formData = new FormData();
-
-      Object.entries(data).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach((val) => formData.append(key, val));
-        } else {
-          formData.append(key, value);
-        }
-      });
-
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-      console.log(data);
-
-      $.ajax({
-        url: "http://127.0.0.1:8000/pixelate/upload",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: { "X-CSRFToken": csrftoken },
-        success: (res) => {
-          console.log(res);
-          localStorage.setItem("Image_Path", JSON.stringify(res));
-          window.location.href = "upload_page";
-        },
-        error: (res) => {
-          console.error("Error", res);
-        },
-      });
+    const data = {
+      uid: uid,
+      image: file,
+      mode: mode,
+      scale: scale,
+      channels: channels,
+      format: format,
     };
+    // formData.append("size[]", img.height);
+    // formData.append("size[]", img.width);
+
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((val) => formData.append(key, val));
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    console.log(data);
+
+    $.ajax({
+      url: "http://127.0.0.1:8000/pixelate/upload",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      headers: { "X-CSRFToken": csrftoken },
+      success: (res) => {
+        console.log(res);
+        localStorage.setItem("Image_Path", JSON.stringify(res));
+        window.location.href = "upload_page";
+      },
+      error: (res) => {
+        console.error("Error", res);
+      },
+    });
   });
 
   function getCookie(name) {
