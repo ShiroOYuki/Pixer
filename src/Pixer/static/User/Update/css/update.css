@@ -25,7 +25,7 @@ body {
     padding: 30px 40px;
 }
 
-h2 { 
+.update-container .update-form h2 { 
     font-size: 2em;
     color: #333;
     text-align: center;

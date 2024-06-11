@@ -14,6 +14,7 @@ Update
 
 {% block body %}
 <div class="user-information">
+    <span class="back-icon"><a href="../homepage"><ion-icon name="arrow-back-outline"></ion-icon></a></span>
     <h2>User Information</h2>
     <form id="user-form">
         <div class="form-group">
@@ -44,4 +45,6 @@ Update
         <a class="btnSignout-popup" id="btnSignout-popup" href="../homepage">Sign Out</a>
     </form>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 {% endblock body %}

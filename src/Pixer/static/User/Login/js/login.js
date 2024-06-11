@@ -25,8 +25,8 @@ $(document).ready(() => {
         const uid = res.uid;
         const session_id = res.session_id;
 
-        setCookie("uid", uid, 7); // Cookie 有效期为 7 天
-        setCookie("session_id", session_id, 7);
+        setCookie("uid", uid, 0.125); // Cookie 有效期為3小時(0.125天)
+        setCookie("session_id", session_id, 0.125);
 
         console.log("Cookies set: ", document.cookie);
 

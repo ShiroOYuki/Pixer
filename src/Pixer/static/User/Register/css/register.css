@@ -29,7 +29,7 @@ body {
     gap: 10px;
 }
 
-h2 { 
+.register-container .register-form h2 { 
     font-size: 2em;
     color: #333;
     text-align: center;

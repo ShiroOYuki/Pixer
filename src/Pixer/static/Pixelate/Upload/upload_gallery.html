@@ -1,7 +1,7 @@
 {% extends "preload.html" %}
 
 {% block title %}
-Image Page
+Upload
 {% endblock %}
 
 {% block css %}
@@ -9,14 +9,32 @@ Image Page
 {% endblock css %}
 
 {% block js %}
-<script src="static/Pixelate/Upload/js/upload_gallery.js" async defer></script>
+<script src="/static/Pixelate/Upload/js/upload_gallery.js" async defer></script>
 {% endblock js %}
 
 {% block body %}
-<div class="container">
-    <div class="upload-from">
-        <h2>Result</h2>
-        <img id="image" src="" alt="Image">
+<div class="upload-container">
+    <div class="upload-left">
+        <img id="result_image" src="">
+    </div>
+    <div class="upload-right">
+        <div class="form-group">
+            <label class="trash">I don't like it : <button class="trash"><a href="pixelate_page">Move to the trash</a></button></label>
+        </div>
+        <h2>Upload to Gallery</h2>
+        <div class="form-group">
+            <div class="underline">
+                <label for="title">Image Title : (Optional)</label>
+                <input type="text" name="title" id="title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Image Description : (Optional)</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <a class="btnUpload-popup" id="btnUpload-popup" href="#">Upload to Gallery</a>
     </div>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 {% endblock body %}

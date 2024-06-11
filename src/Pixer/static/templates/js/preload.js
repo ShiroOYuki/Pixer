@@ -1,9 +1,9 @@
 $(document).ready(() => {
-  var icon = document.getElementById("icon");
+  var user_icon = document.getElementById("user-icon");
   var btnLogin_popup = document.getElementById("btnLogin-popup");
 
   if (getCookie("uid") && getCookie("session_id")) {
-    icon.style.display = "block";
+    user_icon.style.display = "block";
     btnLogin_popup.style.display = "none";
   }
 });
