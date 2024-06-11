@@ -11,25 +11,17 @@ class PixelateResultType:
         self.msg = msg
 
 class ImageProcesser:
-    def byte_to_image(self, img_data: bytes, size: tuple[int, int, int]):
-        img_ary = None
-        try:
-            img_ary = np.frombuffer(img_data, dtype=np.uint8).reshape(size)
-            img_ary = img_ary.reshape(size)
-        except Exception as e:
-            print(e)
-        return img_ary
-    
-    def file_to_image(self, img_data: bytes, size: tuple[int, int, int]):
+    def file_to_image(self, img_data: bytes):
         img_ary = None
         try:
             img_data = io.BytesIO(img_data)
             img = Image.open(img_data)
+            size = img.size
             img_ary = np.array(img)
-            img_ary = img_ary.reshape(size)
+            img_ary = img_ary.reshape((size[1], size[0], 3))
         except Exception as e:
             print(e)
-        return img_ary
+        return img_ary, img.size
     
     def process(self, image: np.ndarray, channels: Literal[6, 12, 24], color_mode: Literal["gray", "rgb"], pixel_scale: int) -> PixelateResultType:
         res = None
