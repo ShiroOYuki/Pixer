@@ -19,10 +19,10 @@ def image_page(request, image_id:str):
                                          # 並加上創建這張圖片的人的 username
                                          # (未製作): 以及是否已經在 favorite 裡面
                                     
-    return JsonResponse(data, safe=False)       # 要導向到正確的頁面時，把這行註解
+    #return JsonResponse(data, safe=False)       # 要導向到正確的頁面時，把這行註解
                                                 # 然後把下面那行取消註解，將 html 改成正確的檔案
                                     
-    # return render(request, "your_html_file.html", context=data)
+    return render(request, "image_page.html", context=data)
     
 def toggle_favorite(request):
     if request.method == "POST":
@@ -174,6 +174,3 @@ def download(request: HttpRequest):
             return HttpResponse("OK")
         except:
             return HttpResponseServerError("unknown error")
-        
-def image_page(request):
-    return render(request, "image_page.html")

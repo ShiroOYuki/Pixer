@@ -10,24 +10,32 @@ body {
     justify-content: center;
     align-items: center;
     height: 84vh;
+    gap: 50px;
 }
 
 .left{
-    flex: 1.2;
+    display: flex;
+    flex: 3;
+    padding: 50px;
 }
 
 .right{
-    flex: 0.8;
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 1.4em;
 }
 
 .left img {
     max-width: 100%;
-    height: auto;
+    max-height: 100%;
     display: block; /* 確保圖片是區塊元素 */
     margin-left: auto;
     margin-right: auto;
+    object-fit: contain;
 }
-
-.right {
-    padding: 20px;
+ 
+.right span{
+    margin-left: 10px;
 }

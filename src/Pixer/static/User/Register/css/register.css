@@ -9,8 +9,10 @@ body {
 }
 
 .register-container {
-    width: 400px;
-    height: 595px;
+    width: 20%;
+    min-width: 400px;
+    height: auto;
+    min-height: 595px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;

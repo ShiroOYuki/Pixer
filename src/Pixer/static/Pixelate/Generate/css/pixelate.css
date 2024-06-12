@@ -39,7 +39,7 @@ body {
 
 .form-row input:focus,
 .form-row select:focus {
-    border-color: black; /* 将边框颜色设置为黑色 */
+    border-color: black;
 }
 
 button[type="submit"] {

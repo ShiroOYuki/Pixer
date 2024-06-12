@@ -32,40 +32,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const file = imageInput.files[0];
 
-    //const formData = new FormData();
-
-    // formData.append("uid", uid);
-    // formData.append("image", file);
-    // formData.append("mode", mode);
-    // formData.append("scale", scale);
-    // formData.append("channels", channels);
-    // formData.append("format", format);
-
-    const data = {
-      uid: uid,
-      image: file,
-      mode: mode,
-      scale: scale,
-      channels: channels,
-      format: format,
-    };
-    // formData.append("size[]", img.height);
-    // formData.append("size[]", img.width);
-
     const formData = new FormData();
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((val) => formData.append(key, val));
-      } else {
-        formData.append(key, value);
-      }
-    });
+    formData.append("uid", uid);
+    formData.append("image", file);
+    formData.append("mode", mode);
+    formData.append("scale", scale);
+    formData.append("channels", channels);
+    formData.append("format", format);
 
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-    console.log(data);
 
     $.ajax({
       url: "http://127.0.0.1:8000/pixelate/upload",

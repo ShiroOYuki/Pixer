@@ -53,10 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
       data: data,
       headers: { "X-CSRFToken": csrftoken },
       success: (res) => {
-        console.log(data);
         console.log(res);
 
-        //window.location.href = "../homepage";
+        window.location.href = res.link_url + "?uid=" + uid;
       },
       error: (res) => {
         console.error("Error", res);

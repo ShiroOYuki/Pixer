@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: { "X-CSRFToken": csrftoken },
       success: (res) => {
         console.log(res);
-        window.location.href = "#";
+        window.location.href = "login_page";
       },
       error: (res) => {
         console.error("Error", res);
