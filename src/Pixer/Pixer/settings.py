@@ -66,6 +66,7 @@ TEMPLATES = [
             BASE_DIR / "static" / "Gallery",
             BASE_DIR / "static" / "Gallery" / "Image_Page",
             BASE_DIR / "static" / "Gallery" / "Gallery_Page",
+            BASE_DIR / "static" / "Gallery" / "Favorites_Page",
             BASE_DIR / "static" / "User",
             BASE_DIR / "static" / "User" / "Login",
             BASE_DIR / "static" / "User" / "Register",

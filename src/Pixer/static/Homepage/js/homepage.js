@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const data = {
     page: 1,
-    limit: 3,
+    limit: 1,
   };
   $.ajax({
     url: "http://127.0.0.1:8000/gallery/page",

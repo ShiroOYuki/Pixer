@@ -51,9 +51,7 @@ $(document).ready(() => {
     data: data,
     headers: { "X-CSRFToken": csrftoken },
     success: (res) => {
-      console.log(res);
-
-      $("#pixel").val(res.pixel);
+      $("#pixel").val(Math.round(res.pixel * 10) / 10);
     },
     error: (res) => {
       console.error("Error", res);

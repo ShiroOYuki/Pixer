@@ -6,6 +6,16 @@ body {
 }
 
 #hero {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    object-fit: cover;
+    color: #fff;
+    text-align: center;
+    padding: 0px;
+    height: 88vh;
+}
+
+/* #hero {
     background-repeat: no-repeat, no-repeat, no-repeat;
     background-position: left, center, right;
     background-size: 33% 100%, 34% 100%, 33% 100%;
@@ -14,7 +24,8 @@ body {
     text-align: center;
     padding: 0px;
     height: 800px;
-}
+} */
+
 
 #hero .cover{
     display: flex;
@@ -69,7 +80,8 @@ body {
 }
 
 .feature-item {
-    background-color: #ddd;
+    /* background-color: #ddd; */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.349);
     padding: 20px;
     border-radius: 5px;
     transition: transform 0.3s, background-color 0.3s;

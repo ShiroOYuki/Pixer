@@ -1,19 +1,26 @@
 $(document).ready(async () => {
   const csrftoken = getCookie("csrftoken");
+  const uid = getCookie("uid");
   let firstload = true;
   let imageIndex;
   let column;
   let columns_height;
   let columns_x;
 
+  if (uid == null) {
+    alert("You Have To Login !");
+    window.location.href = "/user/login_page";
+  }
+
   async function fetchImages(page, limit) {
     return new Promise((resolve, reject) => {
       const data = {
+        uid: uid,
         page: page,
         limit: limit,
       };
       $.ajax({
-        url: "http://127.0.0.1:8000/gallery/page",
+        url: "http://127.0.0.1:8000/gallery/favorites-page",
         type: "POST",
         data: data,
         headers: { "X-CSRFToken": csrftoken },

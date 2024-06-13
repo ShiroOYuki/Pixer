@@ -13,4 +13,5 @@ urlpatterns = [
     path('remove', views.remove_gallery, name="remove_gallery"),
     path('download', views.download, name="download_gallery"),
     path('image_page', views.image_page, name="image_page"),
+    path('favorites', views.favorites, name="favorites")
 ]

@@ -60,7 +60,7 @@ $(document).ready(() => {
         window.location.href = "data_page";
       },
       error: (res) => {
-        console.log(data);
+        alert("Password Incorrect");
         console.error("Error", res);
       },
     });

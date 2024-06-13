@@ -11,6 +11,9 @@ from User.models import PixerUser, PixerWallet
 def index(request):
     return render(request, "gallery_page.html")
 
+def favorites(request):
+    return render(request, "favorites_page.html")
+
 def image_page(request, image_id:str):
     uid = request.GET.get("uid") # 在網址後面接 ?uid=<your_uid>
     if uid == "": uid = None
