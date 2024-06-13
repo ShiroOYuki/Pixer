@@ -17,6 +17,8 @@ class PixerImages(models.Model):
     download_times = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=45, blank=True, null=True)
     description = models.CharField(max_length=100, blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    width = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
