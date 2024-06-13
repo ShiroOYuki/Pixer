@@ -1,5 +1,6 @@
 $(document).ready(async () => {
   const csrftoken = getCookie("csrftoken");
+  const uid = getCookie("uid");
   let firstload = true;
   let imageIndex;
   let column;
@@ -9,6 +10,7 @@ $(document).ready(async () => {
   async function fetchImages(page, limit) {
     return new Promise((resolve, reject) => {
       const data = {
+        uid: uid,
         page: page,
         limit: limit,
       };
@@ -55,8 +57,6 @@ $(document).ready(async () => {
 
   function calc_height(images) {
     console.log(images);
-    // let max_item_height = 400; // 測試用元件的最大高度
-    // let min_item_height = 100; // 測試用元件的最小高度
 
     let item_w = 400; // 元件寬度
     let gap = 20; // 元件與元件之間的間隔
@@ -117,7 +117,9 @@ $(document).ready(async () => {
       imgDiv.appendChild(imgElement);
       container.appendChild(imgDiv);
 
-      columns_height[column_now] += 400 + gap;
+      let scale = item_w / image.width;
+
+      columns_height[column_now] += image.height * scale + gap;
       imageIndex += 1;
     });
   }

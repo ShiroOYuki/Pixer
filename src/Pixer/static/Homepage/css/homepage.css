@@ -6,10 +6,26 @@ body {
 }
 
 #hero {
-    background: url('/static/Pixelate/imgs/temps/81fe69d53c35c7e70724_17179452035731351.png') no-repeat center center/cover;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: left, center, right;
+    background-size: 33% 100%, 34% 100%, 33% 100%;
+    object-fit: cover;
     color: #fff;
     text-align: center;
-    padding: 300px 20px;
+    padding: 0px;
+    height: 800px;
+}
+
+#hero .cover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0px;
+    padding: 0px;
 }
 
 #hero h1 {
@@ -57,6 +73,8 @@ body {
     padding: 20px;
     border-radius: 5px;
     transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+    color: #333;
 }
 
 .feature-item:hover {

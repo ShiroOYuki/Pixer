@@ -34,6 +34,7 @@ $(document).ready(() => {
       },
       error: (res) => {
         console.error("Error", res);
+        alert(res.responseText);
       },
     });
   });
