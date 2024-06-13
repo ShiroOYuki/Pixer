@@ -99,7 +99,6 @@ def get_favorites_page(request):
             
             favs = list(PixerFavorites.objects.filter(uid=uid).values("image_id"))
             favs = list(map(lambda x: x["image_id"], favs))
-            print(favs)
             
             data = list(PixerImages.objects.filter(image_id__in=favs).order_by("-create_time")[start:end].values())
         
