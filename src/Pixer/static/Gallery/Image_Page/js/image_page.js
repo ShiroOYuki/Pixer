@@ -1,28 +1,58 @@
-// 替換成實際的 image_id 和 uid
-/*const image_id = "46901bfa-62c1-48b3-8a44-7dc45e209e86";
-const uid = getCookie("uid");
+$(document).ready(() => {
+  console.log(is_Favorite);
+  const iconElement = document.querySelector(".bookmarks-outline ion-icon");
+  if (is_Favorite == "True") {
+    iconElement.setAttribute("name", "bookmarks");
+  } else {
+    iconElement.setAttribute("name", "bookmarks-outline");
+  }
 
-$.ajax({
-  url: `/gallery/image/<${image_id}>/?uid=<${uid}>`,
-  //data: { uid: uid },
-  success: function (data) {
-    $("#title").text(data.title);
-    $("#image").attr("src", data.filepath);
-    $("#description").text(data.description);
-    $("#uploaded_by").text(
-      `Uploaded by ${data.username} on ${data.create_time}`
-    );
-    $("#format").text(`Format: ${data.format}`);
-    $("#download_times").text(`Downloaded ${data.download_times} times`);
-    $("#favorite_status").text(
-      data.is_favorite
-        ? "This image is in your favorites."
-        : "This image is not in your favorites."
-    );
-  },
-  error: function (error) {
-    console.error("Error:", error);
-  },
+  const data = {
+    uid: getCookie("uid"),
+    session_id: getCookie("session_id"),
+    image_id: imageId,
+  };
+  const csrftoken = getCookie("csrftoken");
+  $(".toggle-download .bookmarks-outline ion-icon").on("click", function () {
+    $.ajax({
+      url: "http://127.0.0.1:8000/gallery/toggle-favorite",
+      type: "POST",
+      data: data,
+      headers: { "X-CSRFToken": csrftoken },
+      success: (res) => {
+        console.log(res);
+        location.reload();
+      },
+      error: (res) => {
+        console.error("Error", res);
+      },
+    });
+  });
+
+  $(".toggle-download > ion-icon[name='download-outline']").on(
+    "click",
+    function () {
+      $.ajax({
+        url: "http://127.0.0.1:8000/gallery/download",
+        type: "POST",
+        data: data,
+        headers: { "X-CSRFToken": csrftoken },
+        success: (res) => {
+          console.log(res);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = trimmedPath(filePath, "/static");
+          a.download = a.href;
+          a.click();
+          location.reload();
+        },
+        error: (res) => {
+          console.error("Error", res);
+        },
+      });
+      $(this).toggleClass("download-active");
+    }
+  );
 });
 
 function getCookie(name) {
@@ -39,4 +69,19 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-*/
+
+function trimmedPath(fullPath, target) {
+  if (fullPath) {
+    let indexString = fullPath.indexOf(target);
+
+    if (indexString !== -1) {
+      let showPath = fullPath.substring(indexString); //for review the result
+      return showPath;
+    } else {
+      console.log("Trimmed path error");
+    }
+  } else {
+    console.log("Receive path error");
+  }
+  return null;
+}

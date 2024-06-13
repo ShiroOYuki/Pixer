@@ -96,7 +96,7 @@ class PixerWallet(models.Model):
         try:
             pixel = float(wallet_manager.values().first().get("pixel"))
             
-            if feature == "sell": pixel += 0.2
+            if feature == "sell": pixel += 0.4
             if feature == "buy": 
                 if pixel < 1: return False
                 pixel -= 1

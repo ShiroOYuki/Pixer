@@ -9,6 +9,11 @@ Image Page
 {% endblock css %}
 
 {% block js %}
+<script>
+        let is_Favorite = "{{ is_favorite }}";
+        let imageId = "{{ image_id }}";
+        let filePath = "{{ filepath }}"
+</script>
 <script src="/static/Gallery/Image_Page/js/image_page.js" async defer></script>
 {% endblock js %}
 
@@ -23,6 +28,13 @@ Image Page
         <p><strong>Description:</strong> <span id="description">{{ description }}</span></p>
         <p><strong>Downloads:</strong> <span id="downloads">{{ download_times }}</span></p>
         <p><strong>Created At:</strong> <span id="created_at">{{ create_time }}</span></p>
+        <span class="close-icon"><a href="/gallery"><ion-icon name="close"></ion-icon></a></span>
+        <span class="toggle-download">
+            <span class="bookmarks-outline">
+                <ion-icon name="bookmarks-outline"></ion-icon>
+            </span>
+            <ion-icon name="download-outline"></ion-icon>
+        </span>
     </div>
 </div>
 {% endblock body %}

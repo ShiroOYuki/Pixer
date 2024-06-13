@@ -9,7 +9,7 @@ from User.models import PixerUser, PixerWallet
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello Gallery!")
+    return render(request, "gallery_page.html")
 
 def image_page(request, image_id:str):
     uid = request.GET.get("uid") # 在網址後面接 ?uid=<your_uid>
@@ -166,7 +166,7 @@ def download(request: HttpRequest):
             if not success: return HttpResponseBadRequest("not enough pixel to buy")
             
             success = PixerWallet.change_pixel(author_id, "sell")
-            if not success: 
+            if not success:
                 PixerWallet.change_pixel(uid, "buy_failed")
                 return HttpResponseServerError("unknown error")
             
