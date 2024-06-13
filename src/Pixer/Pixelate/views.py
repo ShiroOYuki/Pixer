@@ -10,6 +10,7 @@ from Pixelate.ImageProcesser import ImageProcesser
 from Gallery.models import PixerImages
 from User.models import PixerUser, PixerWallet
 from libs.utils.UserTools import generate_session_id
+from PIL import Image
 
 # Create your views here.
 def index(request):
@@ -77,6 +78,8 @@ def upload_gallery(request):
             if not PixerImages.objects.filter(image_id=image_id).exists(): 
                 break
             
+        w, h = ImageProcesser.get_size(image_path)
+        
         PixerImages.objects.create(
             image_id=image_id,
             uid=uid,
@@ -85,7 +88,9 @@ def upload_gallery(request):
             format=image_format,
             download_times=0,
             title=title,
-            description=desc
+            description=desc,
+            height=h,
+            width=w
         )
         
         PixerWallet.change_pixel(uid, "upload")

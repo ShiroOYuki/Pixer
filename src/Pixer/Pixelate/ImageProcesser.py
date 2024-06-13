@@ -63,7 +63,11 @@ class ImageProcesser:
         filepath = os.path.join(os.getcwd(), r"static\Pixelate\imgs\temps", filename)
         img.save(filepath)
         return filepath
-        
+    
+    @classmethod
+    def get_size(self, filepath: str):
+        img = Image.open(filepath)
+        return img.size
                 
         
         
