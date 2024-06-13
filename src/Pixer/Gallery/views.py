@@ -80,6 +80,34 @@ def get_page(request):
             return HttpResponseServerError("unknown error")
     return HttpResponseBadRequest("unsupported method")
 
+def get_favorites_page(request):
+    if request.method == "POST":
+        uid = request.POST.get("uid")
+        page = request.POST.get("page")
+        limit = request.POST.get("limit")
+        
+        try:
+            if uid is None: return HttpResponseBadRequest("key `uid` is required")
+            if page is None or not page.isdigit(): page = 1
+            if limit is None or not limit.isdigit(): limit = 8
+            
+            page = int(page)
+            limit = int(limit)
+            
+            start = limit * (page-1)
+            end = start + limit
+            
+            favs = list(PixerFavorites.objects.filter(uid=uid).values("image_id"))
+            favs = list(map(lambda x: x["image_id"], favs))
+            print(favs)
+            
+            data = list(PixerImages.objects.filter(image_id__in=favs).order_by("-create_time")[start:end].values())
+        
+            return JsonResponse(data, safe=False)
+        except:
+            return HttpResponseServerError("unknown error")
+    return HttpResponseBadRequest("unsupported method")
+
 def update_image_info(request):
     if request.method == "POST":
         uid = request.POST.get("uid")
