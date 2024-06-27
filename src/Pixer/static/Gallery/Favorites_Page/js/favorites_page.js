@@ -63,7 +63,7 @@ $(document).ready(async () => {
   function calc_height(images) {
     console.log(images);
 
-    let item_w = 400; // 元件寬度
+    let item_w = 350; // 元件寬度
     let gap = 20; // 元件與元件之間的間隔
     let total_w = document.getElementById("out-container").clientWidth; // container 總寬度
     column = Math.floor(total_w / (item_w + 10)); // 計算以現在的 container 寬度來說，可以塞幾排
