@@ -99,7 +99,7 @@ DATABASES = {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'" 
         },
         'USER': 'root',
-        'PASSWORD': 'Lu930611',
+        'PASSWORD': 'xxxx',
         "HOST": "127.0.0.1",
         "POST": 3306
     }
